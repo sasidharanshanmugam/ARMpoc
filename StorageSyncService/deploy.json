@@ -1,0 +1,255 @@
+{ 
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "storageSyncServicesname": {
+            "type": "string",
+            "defaultValue": "",
+            "maxLength": 25
+        },
+        "Location": {
+            "type": "string",
+            "metadata": {
+                "defaultValue": ""
+            }
+        },
+        "SyncGroupName": {
+            "type": "string",
+            "defaultValue":"ServerA-P01",
+            "metadata": {
+                "description": "The name of the storage endpoint."
+            }
+        },
+        "serverID": {
+            "type": "string",
+            "defaultValue":"",
+            "metadata": {
+                "description": "The name of the storage endpoint."
+            }
+        },
+        "enableServerEndpoint": {
+            "type": "bool",
+            "defaultValue": false
+        },
+         "azureFileShareName": {
+            "type": "string",
+             "defaultValue": " ",
+            "metadata": {
+                "description": "The name of the file share."
+            }
+        },
+        "cloudendpoint": {
+            "type": "string",
+            "defaultValue": "bhendpoints",
+            "metadata": {
+                "description": "The name of the file share."
+            }
+        },
+        "storageAccountResourceId": {
+            "type": "securestring",
+             "defaultValue": "",
+            "metadata": {
+                "description": "The storage account access key."
+            }
+        },
+         "storageAccountTenantId": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "The storage server id."
+            }
+        },
+        "cloudTiering": {
+            "type": "string",
+            "metadata": {
+                "description": "descrip"
+            }
+        },
+        "volumeFreeSpacePercent": {
+            "type": "string",
+            "metadata": {
+                "description": "description"
+            }
+        },
+        "serverLocalPath": {
+            "type": "string",
+            "metadata": {
+                "description": "description"
+            }
+        },
+        "Datepolicy": {
+            "type": "string",
+            "metadata": {
+                "description": "description"
+            }
+        }
+        // "privateEndpointname": {
+        //     "defaultValue": " ",
+        //     "type": "String"
+        // },
+        // "storageSyncServicesid": {
+        //     "defaultValue": " ",
+        //     "type": "String"
+        // },
+        // "virtualNetworksid": {
+        //     "defaultValue": " ",
+        //     "type": "String"
+        // },
+        // "privateDnsZonesid": {
+        //     "defaultValue": " ",
+        //     "type": "String"
+        // }
+        // "Allow access from": {
+        //     "type": "string",
+        //     "allowedValues": [
+        //         "AllowVirtualNetworksOnly",
+        //         "AllowAllTraffic"
+        //     ],
+        //     "metadata": {
+        //         "description": "This is to select Allnetwork or priviteend point only option"
+        //     }
+        // }
+
+    },
+    "variables": {
+        // "templateFilePath": "C:/Users/UserDesktop/BH/arm-template/StorageAccount/deploy.json"
+        // "templateFilePath": "/StorageAccount/deploy.json"
+    },
+    "resources": [
+        // {
+        //     "type": "Microsoft.Network/privateEndpoints",
+        //     "apiVersion": "2022-09-01",
+        //     "name": "[parameters('privateEndpointname')]",
+        //     "location": "westus2",
+        //     "properties": {
+        //         "privateLinkServiceConnections": [
+        //             {
+        //                 "name": "[parameters('privateEndpointname')]",
+        //                 "id": "[concat(resourceId('Microsoft.Network/privateEndpoints', parameters('privateEndpointname')), concat('/privateLinkServiceConnections/', parameters('privateEndpointname')))]",
+        //                 "properties": {
+        //                     "privateLinkServiceId": "[parameters('storageSyncServicesid')]",
+        //                     "groupIds": [
+        //                         "Afs"
+        //                     ],
+        //                     "privateLinkServiceConnectionState": {
+        //                         "status": "Approved",
+        //                         "actionsRequired": "None"
+        //                     }
+        //                 }
+        //             }
+        //         ],
+        //         "manualPrivateLinkServiceConnections": [],
+        //         "customNetworkInterfaceName": "[concat(parameters('privateEndpointname'), '-nic')]",
+        //         "subnet": {
+        //             "id": "[concat(parameters('virtualNetworksid'), '/subnets/default')]"
+        //         },
+        //         "ipConfigurations": [],
+        //         "customDnsConfigs": []
+        //     }
+        // },
+        // {
+        //     "type": "Microsoft.Network/privateEndpoints/privateDnsZoneGroups",
+        //     "apiVersion": "2022-09-01",
+        //     "name": "[concat(parameters('privateEndpointname'), '/default')]",
+        //     "dependsOn": [
+        //         "[resourceId('Microsoft.Network/privateEndpoints', parameters('privateEndpointname'))]"
+        //     ],
+        //     "properties": {
+        //         "privateDnsZoneConfigs": [
+        //             {
+        //                 "name": "privatelink-afs-azure-net",
+        //                 "properties": {
+        //                     "privateDnsZoneId": "[parameters('privateDnsZonesid')]"
+        //                 }
+        //             }
+        //         ]
+        //     }
+        // },
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2021-04-01",
+            "name": "linkedTemplate1",
+            "properties": {
+                "mode": "Incremental",
+                "expressionEvaluationOptions": {
+                    "scope": "outer"
+                },
+
+                "templateLink": {
+                    "relativePath": "/C:/Users/User/Desktop/BH/arm-template/StorageAccount/deploy.json"
+               },
+               "parameterLink": {
+                    "relativePath": "/C:/Users/User/Desktop/BH/arm-template/StorageAccount/Parameters/Parameters.json"
+               },
+               "outputs": {
+                    "storageAccountResourceId": {
+                        "value": "[reference('storageAccount').outputs.storageAccountResourceId.value]"
+                    }
+                }
+            }
+        },
+        {
+            "type": "Microsoft.StorageSync/storageSyncServices",
+            "apiVersion": "2022-06-01",
+            "name": "[parameters('storageSyncServicesname')]",
+            "location": "[parameters('Location')]",
+            "properties": {
+                "incomingTrafficPolicy": "AllowAllTraffic"
+            }
+        },
+        {
+            "type": "Microsoft.StorageSync/storageSyncServices/syncGroups",
+            "apiVersion": "2022-06-01",
+            "name": "[concat(parameters('storageSyncServicesname'), '/', if(not(empty(parameters('SyncGroupName'))), parameters('SyncGroupName'), 'defaultValue'))]",
+            "dependsOn": [
+                 "[resourceId('Microsoft.StorageSync/storageSyncServices', parameters('storageSyncServicesname'))]"
+                // "[resourceId('Microsoft.Resources/deployments', 'StorageAccount')]"
+
+            ],
+            "properties": {}
+        },
+        {
+            "condition": "[parameters('enableServerEndpoint')]",
+            "type": "Microsoft.StorageSync/storageSyncServices/syncGroups/cloudEndpoints",
+            "apiVersion": "2022-06-01",
+            "name": "[concat(parameters('storageSyncServicesname'), '/', parameters('SyncGroupName'), '/', parameters('cloudendpoint'))]",
+            "dependsOn": [
+                "[resourceId('Microsoft.StorageSync/storageSyncServices', parameters('storageSyncServicesname'))]",
+                "[resourceId('Microsoft.StorageSync/storageSyncServices/syncGroups', parameters('storageSyncServicesname'), parameters('SyncGroupName'))]"
+            ],
+            "properties": {
+                "storageAccountResourceId": "[reference('linkedTemplate1').outputs.storageAccountResourceId.value]",
+                "azureFileShareName": "[parameters('azureFileShareName')]",
+                "storageAccountTenantId": "[parameters('storageAccountTenantId')]",
+                "friendlyName": "[parameters('azureFileShareName')]"
+            }
+        },
+        {
+            "condition": "[parameters('enableServerEndpoint')]",
+            "type": "Microsoft.StorageSync/storageSyncServices/syncGroups/serverEndpoints",
+            "apiVersion": "2019-02-01",
+            "name": "[concat(parameters('storageSyncServicesname'), '/', parameters('SyncGroupName'), '/', parameters('azureFileShareName'))]",
+            "dependsOn": [
+                "[resourceId('Microsoft.StorageSync/storageSyncServices', parameters('storageSyncServicesname'))]",
+                "[resourceId('Microsoft.StorageSync/storageSyncServices/syncGroups/cloudEndpoints', parameters('storageSyncServicesname'), parameters('SyncGroupName'), parameters('cloudendpoint'))]"
+            ],
+            "properties": {
+            "serverLocalPath": "[parameters('serverLocalPath')]",
+            "cloudTiering": "[parameters('cloudTiering')]",
+            "volumeFreeSpacePercent": "[parameters('volumeFreeSpacePercent')]",
+            "tierFilesOlderThanDays": "[parameters('Datepolicy')]",
+            "storageAccountResourceId":"[reference('linkedTemplate1').outputs.storageAccountResourceId.value]",
+            "serverResourceId": "[resourceId('Microsoft.StorageSync/storageSyncServices/registeredServers', parameters('storageSyncServicesname'), parameters('serverID'))]",
+            "offlineDataTransfer": "Off",
+            "initialDownloadPolicy": "NamespaceOnly",
+            "localCacheMode": "UpdateLocallyCachedFiles",
+            "initialUploadPolicy": "ServerAuthoritative"
+        }
+    }
+   ]
+}
+
+   
+  
+
+

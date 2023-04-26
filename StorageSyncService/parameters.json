@@ -1,0 +1,63 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "storageSyncServicesname": {
+            "value": "SA-Filesyncsdc-poc"
+        },
+        // "storageAccountResourceId": {
+        //     "value": "/subscriptions/732486d5-9184-4d49-a508-bb533cdcd6b6/resourceGroups/MSFT-assessment/providers/Microsoft.Storage/storageAccounts/msftstoragepoc"
+        // },
+        "Location": {
+            "value": "westus2" 
+        },
+        "SyncGroupName": {
+            "value": "ServerA-P01-end"
+        },
+        "azureFileShareName": {
+            "value": "fileshareaj"
+        },
+        "serverID": {
+            "value": ""
+        },
+        "enableServerEndpoint": {
+            "value": false
+        },
+        "storageAccountTenantId": {
+            "value": "15c06421-f9b2-4764-8696-50765d1efbda"
+        },
+        "cloudendpoint": {
+            "Value": "bhendpoint"
+    
+        },
+        "cloudTiering": {
+            "value": "on"
+        },
+        "volumeFreeSpacePercent": {
+            "value": "20"
+        },
+        "serverLocalPath": {
+           "value": "D:\\"
+        },
+        "Datepolicy": {
+            "value":"15"
+        }
+        // "privateEndpointname": {
+        //     "value": "pocend1"
+        // },
+        // "Allow access from": {
+        //     "value": "AllowVirtualNetworksOnly"
+        // },
+        // "storageSyncServicesid": {
+        //     "value": "/subscriptions/732486d5-9184-4d49-a508-bb533cdcd6b6/resourceGroups/MSFT-assessment/providers/Microsoft.StorageSync/storageSyncServices/SA-Filesync-P03-poc"
+        // },
+        // "virtualNetworksid": {
+        //     "value": "/subscriptions/732486d5-9184-4d49-a508-bb533cdcd6b6/resourceGroups/DevOps-training/providers/Microsoft.Network/virtualNetworks/msft"
+        // },
+        // "privateDnsZonesid": {
+        //     "value": "/subscriptions/732486d5-9184-4d49-a508-bb533cdcd6b6/resourceGroups/DevOps-training/providers/Microsoft.Network/privateDnsZones/privatelink.afs.azure.net"
+        // }
+
+    }
+
+ }
