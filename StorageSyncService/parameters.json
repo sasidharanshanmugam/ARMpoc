@@ -5,13 +5,6 @@
         "storageSyncServicesname": {
             "value": "SA-Filesyncsdc-poc"
         },
-        // "storageAccountname": {
-        //     "value": "stringst"
-        // },
-        // "storageAccountResourceId": {
-        //     // "value": "/subscriptions/732486d5-9184-4d49-a508-bb533cdcd6b6/resourceGroups/MSFT-assessment/providers/Microsoft.Storage/storageAccounts/msftstoragepoc"
-        //     // "value": "[concat(parameters('storageaccountname'),)]"
-        // },
         "Location": {
             "value": "westus2" 
         },
@@ -45,25 +38,25 @@
         },
         "Datepolicy": {
             "value":"15"
-        }
-        // "deploymentFilePath": {
-        //     "value":"'C:\\Users\\User\\Desktop\\poc\\storageaccount\\deploy.json'"
-        // }
-        // "privateEndpointname": {
-        //     "value": "pocend1"
-        // },
+        },
+        "deploymentFilePath": {
+            "value":"'C:\\Users\\User\\Desktop\\poc\\storageaccount\\deploy.json'"
+        },
+        "privateEndpointname": {
+            "value": "pocend1"
+        },
         // "Allow access from": {
         //     "value": "AllowVirtualNetworksOnly"
         // },
-        // "storageSyncServicesid": {
-        //     "value": "/subscriptions/732486d5-9184-4d49-a508-bb533cdcd6b6/resourceGroups/MSFT-assessment/providers/Microsoft.StorageSync/storageSyncServices/SA-Filesync-P03-poc"
-        // },
-        // "virtualNetworksid": {
-        //     "value": "/subscriptions/732486d5-9184-4d49-a508-bb533cdcd6b6/resourceGroups/DevOps-training/providers/Microsoft.Network/virtualNetworks/msft"
-        // },
-        // "privateDnsZonesid": {
-        //     "value": "/subscriptions/732486d5-9184-4d49-a508-bb533cdcd6b6/resourceGroups/DevOps-training/providers/Microsoft.Network/privateDnsZones/privatelink.afs.azure.net"
-        // }
+        "storageSyncServicesid": {
+            "value": "/subscriptions/732486d5-9184-4d49-a508-bb533cdcd6b6/resourceGroups/MSFT-assessment/providers/Microsoft.StorageSync/storageSyncServices/SA-Filesync-P03-poc"
+        },
+        "virtualNetworksid": {
+            "value": "/subscriptions/732486d5-9184-4d49-a508-bb533cdcd6b6/resourceGroups/DevOps-training/providers/Microsoft.Network/virtualNetworks/msft"
+        },
+        "privateDnsZonesid": {
+            "value": "/subscriptions/732486d5-9184-4d49-a508-bb533cdcd6b6/resourceGroups/DevOps-training/providers/Microsoft.Network/privateDnsZones/privatelink.afs.azure.net"
+        }
 
     }
 
