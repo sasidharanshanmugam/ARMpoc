@@ -5,8 +5,12 @@
         "storageSyncServicesname": {
             "value": "SA-Filesyncsdc-poc"
         },
+        // "storageAccountname": {
+        //     "value": "stringst"
+        // },
         // "storageAccountResourceId": {
-        //     "value": "/subscriptions/732486d5-9184-4d49-a508-bb533cdcd6b6/resourceGroups/MSFT-assessment/providers/Microsoft.Storage/storageAccounts/msftstoragepoc"
+        //     // "value": "/subscriptions/732486d5-9184-4d49-a508-bb533cdcd6b6/resourceGroups/MSFT-assessment/providers/Microsoft.Storage/storageAccounts/msftstoragepoc"
+        //     // "value": "[concat(parameters('storageaccountname'),)]"
         // },
         "Location": {
             "value": "westus2" 
@@ -42,6 +46,9 @@
         "Datepolicy": {
             "value":"15"
         }
+        // "deploymentFilePath": {
+        //     "value":"'C:\\Users\\User\\Desktop\\poc\\storageaccount\\deploy.json'"
+        // }
         // "privateEndpointname": {
         //     "value": "pocend1"
         // },
