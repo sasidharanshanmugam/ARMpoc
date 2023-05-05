@@ -11,7 +11,7 @@
             "type": "String"
         },
         "location": {
-            "type": "string"
+            "type": "string",
             "defaultValue": "westus2"
         }
     },
