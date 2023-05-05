@@ -7,11 +7,9 @@
             "defaultValue": "",
             "maxLength": 25
         },
-        "Location": {
+        "location": {
             "type": "string",
-            "metadata": {
-                "defaultValue": ""
-            }
+            "defaultValue": "westus2"
         },
         "SyncGroupName": {
             "type": "string",
@@ -82,97 +80,142 @@
             "metadata": {
                 "description": "description"
             }
-        },
-        "privateEndpointname": {
-            "defaultValue": " ",
-            "type": "String"
-        },
-        "storageSyncServicesid": {
-            "defaultValue": " ",
-            "type": "String"
-        },
-        "virtualNetworksid": {
-            "defaultValue": " ",
-            "type": "String"
-        },
-        "privateDnsZonesid": {
-            "defaultValue": " ",
-            "type": "String"
         }
+        // "storageAccountname": {
+        //     "type": "string",
+        //     "metadata": {
+        //         "description": "description"
+        //     }
+        // },
+        // "deploymentFilePath": {
+        //     "type": "string",
+        //     "metadata": {
+        //         "description": "description"
+        //     }
+        // }
+        // "privateEndpointname": {
+        //     "defaultValue": " ",
+        //     "type": "String"
+        // },
+        // "storageSyncServicesid": {
+        //     "defaultValue": " ",
+        //     "type": "String"
+        // },
+        // "virtualNetworksid": {
+        //     "defaultValue": " ",
+        //     "type": "String"
+        // },
+        // "privateDnsZonesid": {
+        //     "defaultValue": " ",
+        //     "type": "String"
+        // }
+        // "Allow access from": {
+        //     "type": "string",
+        //     "allowedValues": [
+        //         "AllowVirtualNetworksOnly",
+        //         "AllowAllTraffic"
+        //     ],
+        //     "metadata": {
+        //         "description": "This is to select Allnetwork or priviteend point only option"
+        //     }
+        // }
+
     },
     "variables": {
+        // "uri": "[concat(uri(deployment().properties.templatelink.uri), 'C:\\Users\\User\\Desktop\\poc\\storageaccount\\deploy.json')]"
+        // "templateFilePath": "/StorageAccount/deploy.json"
     },
     "resources": [
-        {
-            "type": "Microsoft.Network/privateEndpoints",
-            "apiVersion": "2022-09-01",
-            "name": "[parameters('privateEndpointname')]",
-            "location": "westus2",
-            "properties": {
-                "privateLinkServiceConnections": [
-                    {
-                        "name": "[parameters('privateEndpointname')]",
-                        "id": "[concat(resourceId('Microsoft.Network/privateEndpoints', parameters('privateEndpointname')), concat('/privateLinkServiceConnections/', parameters('privateEndpointname')))]",
-                        "properties": {
-                            "privateLinkServiceId": "[parameters('storageSyncServicesid')]",
-                            "groupIds": [
-                                "Afs"
-                            ],
-                            "privateLinkServiceConnectionState": {
-                                "status": "Approved",
-                                "actionsRequired": "None"
-                            }
-                        }
-                    }
-                ],
-                "manualPrivateLinkServiceConnections": [],
-                "customNetworkInterfaceName": "[concat(parameters('privateEndpointname'), '-nic')]",
-                "subnet": {
-                    "id": "[concat(parameters('virtualNetworksid'), '/subnets/default')]"
-                },
-                "ipConfigurations": [],
-                "customDnsConfigs": []
-            }
-        },
-        {
-            "type": "Microsoft.Network/privateEndpoints/privateDnsZoneGroups",
-            "apiVersion": "2022-09-01",
-            "name": "[concat(parameters('privateEndpointname'), '/default')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Network/privateEndpoints', parameters('privateEndpointname'))]"
-            ],
-            "properties": {
-                "privateDnsZoneConfigs": [
-                    {
-                        "name": "privatelink-afs-azure-net",
-                        "properties": {
-                            "privateDnsZoneId": "[parameters('privateDnsZonesid')]"
-                        }
-                    }
-                ]
-            }
-        },
+        // {
+        //     "type": "Microsoft.Network/privateEndpoints",
+        //     "apiVersion": "2022-09-01",
+        //     "name": "[parameters('privateEndpointname')]",
+        //     "location": "westus2",
+        //     "properties": {
+        //         "privateLinkServiceConnections": [
+        //             {
+        //                 "name": "[parameters('privateEndpointname')]",
+        //                 "id": "[concat(resourceId('Microsoft.Network/privateEndpoints', parameters('privateEndpointname')), concat('/privateLinkServiceConnections/', parameters('privateEndpointname')))]",
+        //                 "properties": {
+        //                     "privateLinkServiceId": "[parameters('storageSyncServicesid')]",
+        //                     "groupIds": [
+        //                         "Afs"
+        //                     ],
+        //                     "privateLinkServiceConnectionState": {
+        //                         "status": "Approved",
+        //                         "actionsRequired": "None"
+        //                     }
+        //                 }
+        //             }
+        //         ],
+        //         "manualPrivateLinkServiceConnections": [],
+        //         "customNetworkInterfaceName": "[concat(parameters('privateEndpointname'), '-nic')]",
+        //         "subnet": {
+        //             "id": "[concat(parameters('virtualNetworksid'), '/subnets/default')]"
+        //         },
+        //         "ipConfigurations": [],
+        //         "customDnsConfigs": []
+        //     }
+        // },
+        // {
+        //     "type": "Microsoft.Network/privateEndpoints/privateDnsZoneGroups",
+        //     "apiVersion": "2022-09-01",
+        //     "name": "[concat(parameters('privateEndpointname'), '/default')]",
+        //     "dependsOn": [
+        //         "[resourceId('Microsoft.Network/privateEndpoints', parameters('privateEndpointname'))]"
+        //     ],
+        //     "properties": {
+        //         "privateDnsZoneConfigs": [
+        //             {
+        //                 "name": "privatelink-afs-azure-net",
+        //                 "properties": {
+        //                     "privateDnsZoneId": "[parameters('privateDnsZonesid')]"
+        //                 }
+        //             }
+        //         ]
+        //     }
+        // },
         {
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2021-04-01",
-            "name": "linkedTemplate1",
+            "name": "linkedTemplate",
             "properties": {
                 "mode": "Incremental",
                 "expressionEvaluationOptions": {
-                    "scope": "outer"
-                },
+                    "scope": "inner"
+                    },
+            "templateLink": {
+                "uri": "https://raw.githubusercontent.com/sasidharanshanmugam/ARMpoc/master/storageaccount/deploy.json",
+                "contentVersion": "1.0.0.0"
+            }
 
-                "templateLink": {
-                    "relativePath": "/C:/Users/User/Desktop/BH/arm-template/StorageAccount/deploy.json"
-               },
-               "parameterLink": {
-                    "relativePath": "/C:/Users/User/Desktop/BH/arm-template/StorageAccount/Parameters/Parameters.json"
-               },
-               "outputs": {
-                    "storageAccountResourceId": {
-                        "value": "[reference('storageAccount').outputs.storageAccountResourceId.value]"
-                    }
-                }
+            // "template": {
+            // "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+            // "contentVersion": "1.0.0.0",
+            // "resources": [
+            //     {
+            //     "type": "Microsoft.Resources/deployments",
+            //     "apiVersion": "2021-04-01",
+            //     "name": "linkedTemplate",
+            //     "properties": {
+            //         "mode": "Incremental",
+            //         "expressionEvaluationOptions": {
+            //         "scope": "inner"
+            //         },
+            //         "$templateLink": {
+            //         // "uri": "[parameters('deploymentFilePath')]",
+            //         "uri": "https://raw.github.com/sasidharanshanmugam/ARMpoc/tree/master/storageaccount",
+            //         "contentVersion": "1.0.0.0"
+            //         }
+            //     }
+            //     }
+            // ]
+            // }
+            // "parameters": {
+            //     "deploymentFilePath": {
+            //     "value": "[parameters('deploymentFilePath')]"
+            //     }
+            // }
             }
         },
         {
@@ -225,7 +268,8 @@
             "cloudTiering": "[parameters('cloudTiering')]",
             "volumeFreeSpacePercent": "[parameters('volumeFreeSpacePercent')]",
             "tierFilesOlderThanDays": "[parameters('Datepolicy')]",
-            "storageAccountResourceId":"[reference('linkedTemplate').outputs.storageAccountResourceId.value]",
+             "storageAccountResourceId":"[reference('linkedTemplate').outputs.storageAccountResourceId.value]",
+            // "storageAccountResourceId": "[resourceId('storageaccount', 'Microsoft.Storage/storageAccounts', 'myStorageAccountName')]",
             "serverResourceId": "[resourceId('Microsoft.StorageSync/storageSyncServices/registeredServers', parameters('storageSyncServicesname'), parameters('serverID'))]",
             "offlineDataTransfer": "Off",
             "initialDownloadPolicy": "NamespaceOnly",
@@ -233,5 +277,5 @@
             "initialUploadPolicy": "ServerAuthoritative"
         }
     }
-    ]
+    ]  
 }

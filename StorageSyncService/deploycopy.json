@@ -1,0 +1,140 @@
+{ 
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "storageSyncServicesname": {
+            "type": "string",
+            "defaultValue": "",
+            "maxLength": 25
+        },
+        "location": {
+            "type": "string",
+            "defaultValue": "WestUS2"
+        },
+        "SyncGroupName": {
+            "type": "string",
+            "defaultValue":"ServerA-P01",
+            "metadata": {
+                "description": "The name of the storage endpoint."
+            }
+        },
+        "serverID": {
+            "type": "string",
+            "defaultValue":"",
+            "metadata": {
+                "description": "The name of the storage endpoint."
+            }
+        },
+        "enableServerEndpoint": {
+            "type": "bool",
+            "defaultValue": false
+        },
+         "azureFileShareName": {
+            "type": "string",
+             "defaultValue": " ",
+            "metadata": {
+                "description": "The name of the file share."
+            }
+        },
+        "cloudendpoint": {
+            "type": "string",
+            "defaultValue": "bhendpoints",
+            "metadata": {
+                "description": "The name of the file share."
+            }
+        },
+        // "storageAccountResourceId": {
+        //     "type": "securestring",
+        //      "defaultValue": "",
+        //     "metadata": {
+        //         "description": "The storage account access key."
+        //     }
+        // },
+         "storageAccountTenantId": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "The storage server id."
+            }
+        },
+        "cloudTiering": {
+            "type": "string",
+            "metadata": {
+                "description": "descrip"
+            }
+        },
+        "volumeFreeSpacePercent": {
+            "type": "string",
+            "metadata": {
+                "description": "description"
+            }
+        },
+        "serverLocalPath": {
+            "type": "string",
+            "metadata": {
+                "description": "description"
+            }
+        },
+        "Datepolicy": {
+            "type": "string",
+            "metadata": {
+                "description": "description"
+            }
+        }
+    },
+    "variables": {
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2021-04-01",
+            "name": "templatessforpocs",
+            "properties": {
+                "mode": "Incremental",
+                "expressionEvaluationOptions": {
+                    "scope": "inner"
+                    },
+            "templateLink": {
+                "uri": "https://raw.githubusercontent.com/sasidharanshanmugam/ARMpoc/master/storageaccount/deploy.json",
+                "contentVersion": "1.0.0.0"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.StorageSync/storageSyncServices",
+            "apiVersion": "2022-06-01",
+            "name": "[parameters('storageSyncServicesname')]",
+            "location": "[parameters('Location')]",
+            "properties": {
+                "incomingTrafficPolicy": "AllowAllTraffic"
+            }
+        },
+        {
+            "type": "Microsoft.StorageSync/storageSyncServices/syncGroups",
+            "apiVersion": "2022-06-01",
+            "name": "[concat(parameters('storageSyncServicesname'), '/', if(not(empty(parameters('SyncGroupName'))), parameters('SyncGroupName'), 'defaultValue'))]",
+            "dependsOn": [
+                 "[resourceId('Microsoft.StorageSync/storageSyncServices', parameters('storageSyncServicesname'))]"
+                // "[resourceId('Microsoft.Resources/deployments', 'StorageAccount')]"
+
+            ],
+            "properties": {}
+        },
+        {
+            "condition": "[parameters('enableServerEndpoint')]",
+            "type": "Microsoft.StorageSync/storageSyncServices/syncGroups/cloudEndpoints",
+            "apiVersion": "2022-06-01",
+            "name": "[concat(parameters('storageSyncServicesname'), '/', parameters('SyncGroupName'), '/', parameters('cloudendpoint'))]",
+            "dependsOn": [
+                "[resourceId('Microsoft.StorageSync/storageSyncServices', parameters('storageSyncServicesname'))]",
+                "[resourceId('Microsoft.StorageSync/storageSyncServices/syncGroups', parameters('storageSyncServicesname'), parameters('SyncGroupName'))]"
+            ],
+            "properties": {
+                "storageAccountResourceId": "[reference('templatessforpocs').outputs.storageAccountResourceId.value]",
+                "azureFileShareName": "[parameters('azureFileShareName')]",
+                "storageAccountTenantId": "[parameters('storageAccountTenantId')]",
+                "friendlyName": "[parameters('azureFileShareName')]"
+            }
+        }
+    ]  
+}

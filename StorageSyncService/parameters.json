@@ -5,20 +5,20 @@
         "storageSyncServicesname": {
             "value": "SA-Filesyncsdc-poc"
         },
-        "Location": {
+        "location": {
             "value": "westus2" 
         },
         "SyncGroupName": {
             "value": "ServerA-P01-end"
         },
         "azureFileShareName": {
-            "value": "fileshareaj"
+            "value": "fileshareak"
         },
         "serverID": {
             "value": ""
         },
         "enableServerEndpoint": {
-            "value": false
+            "value": true
         },
         "storageAccountTenantId": {
             "value": "15c06421-f9b2-4764-8696-50765d1efbda"
@@ -38,26 +38,9 @@
         },
         "Datepolicy": {
             "value":"15"
-        },
-        "deploymentFilePath": {
-            "value":"'C:\\Users\\User\\Desktop\\poc\\storageaccount\\deploy.json'"
-        },
-        "privateEndpointname": {
-            "value": "pocend1"
-        },
-        // "Allow access from": {
-        //     "value": "AllowVirtualNetworksOnly"
-        // },
-        "storageSyncServicesid": {
-            "value": "/subscriptions/732486d5-9184-4d49-a508-bb533cdcd6b6/resourceGroups/MSFT-assessment/providers/Microsoft.StorageSync/storageSyncServices/SA-Filesync-P03-poc"
-        },
-        "virtualNetworksid": {
-            "value": "/subscriptions/732486d5-9184-4d49-a508-bb533cdcd6b6/resourceGroups/DevOps-training/providers/Microsoft.Network/virtualNetworks/msft"
-        },
-        "privateDnsZonesid": {
-            "value": "/subscriptions/732486d5-9184-4d49-a508-bb533cdcd6b6/resourceGroups/DevOps-training/providers/Microsoft.Network/privateDnsZones/privatelink.afs.azure.net"
         }
-
+        // "deploymentFilePath": {
+        //     "value":"C:\\Users\\User\\Desktop\\poc\\storageaccount\\deploy.json"
+        // }
     }
-
  }
