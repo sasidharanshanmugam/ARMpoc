@@ -12,10 +12,7 @@
         },
         "location": {
             "type": "string"
-            "defaultValue": "westus2",
-            "metadata": {
-                "description": "The location where the resources will be created."
-            }
+            "defaultValue": "westus2"
         }
     },
     "variables": {},
