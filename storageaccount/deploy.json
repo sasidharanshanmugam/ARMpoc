@@ -79,7 +79,7 @@
     ],
     "outputs": {
         "storageAccountResourceId": {
-            "type": "object",
+            "type": "string",
             "value": "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName'))]",
             // "value": "[reference(parameters('storageAccountName'))]",
             "metadata": {
