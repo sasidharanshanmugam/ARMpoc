@@ -6,7 +6,6 @@
             "defaultValue": "msftstoragepoc1998",
             "type": "String"
         },
-        
         "fileShareName": {
             "defaultValue": "fileshere1",
             "type": "String"
